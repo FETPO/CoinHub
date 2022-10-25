@@ -27,11 +27,11 @@ I plan to mark my project in three big stages. First is designing the project ar
 
 #### Binance
 
-<img src="CoinHub.assets/image-20221020233247266.png" alt="image-20221020233247266" style="zoom: 67%;" />
+<img src="README.assets/image-20221020233247266.png" alt="image-20221020233247266" style="zoom: 67%;" />
 
 #### Coinbase
 
-<img src="CoinHub.assets/image-20221020233455693.png" alt="image-20221020233455693" style="zoom:67%;" />
+<img src="README.assets/image-20221020233455693.png" alt="image-20221020233455693" style="zoom:67%;" />
 
 BugSnag: an error monitoring and reporting software with best-in-class functionality
 
