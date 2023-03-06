@@ -17,11 +17,25 @@
             <artifactId>finance-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.zihan</groupId>
+            <artifactId>coinhub-common</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
