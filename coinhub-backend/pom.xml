@@ -9,13 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>coinhub-iaas</module>
-        <module>gateway-server</module>
-        <module>coinhub-common</module>
         <module>coinhub-admin</module>
-        <module>coinhub-member</module>
-        <module>coinhub-finance</module>
         <module>coinhub-chan</module>
+        <module>coinhub-common</module>
+        <module>coinhub-finance</module>
+        <module>coinhub-iaas</module>
+        <module>coinhub-member</module>
         <module>coinhub-statistics</module>
         <module>match-engine</module>
         <module>exchange-engine</module>

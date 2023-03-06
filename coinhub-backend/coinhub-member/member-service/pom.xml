@@ -11,6 +11,14 @@
 
     <artifactId>member-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.zihan</groupId>
+            <artifactId>member-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
