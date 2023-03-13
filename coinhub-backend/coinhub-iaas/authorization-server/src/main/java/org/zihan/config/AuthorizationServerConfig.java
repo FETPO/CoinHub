@@ -26,7 +26,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
 
-//    @Qualifier("userServiceDetailsServiceImpl")
+    @Qualifier("userServiceDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -39,46 +39,50 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("coin-api")                               // 第三方客户端的名称
-                .secret(passwordEncoder.encode("coin-secret")) // 第三方客户端的密钥
-                .scopes("all")                                               //第三方客户端的授权范围
-                .accessTokenValiditySeconds(7 * 24 *3600)                   // token的有效期
-                .refreshTokenValiditySeconds(30 * 24 * 3600)                // refresh_token的有效期
-//                .and()
-//                .withClient("inside-app")
-//                .secret(passwordEncoder.encode("inside-secret"))
-//                .authorizedGrantTypes("client_credentials")
-//                .scopes("all")
-//                .accessTokenValiditySeconds(Integer.MAX_VALUE) ;
+                .withClient("coin-api") // 第三方客户端的名称
+                .secret(passwordEncoder.encode("coin-secret")) //  第三方客户端的密钥
+                .scopes("all") //第三方客户端的授权范围
+                .authorizedGrantTypes("password","refresh_token")
+                .accessTokenValiditySeconds(7 * 24 *3600) // token的有效期
+                .refreshTokenValiditySeconds(30 * 24 * 3600)// refresh_token的有效期
+                .and()
+                .withClient("inside-app")
+                .secret(passwordEncoder.encode("inside-secret"))
+                .authorizedGrantTypes("client_credentials")
+                .scopes("all")
+                .accessTokenValiditySeconds(Integer.MAX_VALUE) ;
         ;
         super.configure(clients);
     }
 
     /**
-     * 配置验证管理器，UserDetailService
+     * 配置验证管理器，UserdetailService
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService);
-//                .tokenStore(jwtTokenStore())// tokenStore 来存储我们的token jwt 存储token
-//                .tokenEnhancer(jwtAccessTokenConverter());
-
+                .userDetailsService(userDetailsService)
+//                .tokenStore(redisTokenStore());
+                .tokenStore(jwtTokenStore())
+                .tokenEnhancer(jwtAccessTokenConverter());
         super.configure(endpoints);
     }
 
-//    private TokenStore jwtTokenStore() {
-//        JwtTokenStore jwtTokenStore = new JwtTokenStore(jwtAccessTokenConverter());
-//        return jwtTokenStore;
+//    public TokenStore redisTokenStore() {
+//        return new RedisTokenStore(redisConnectionFactory);
 //    }
 
-//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-//        JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-//
-//        // 加载我们的私钥
-//        ClassPathResource classPathResource = new ClassPathResource("coinexchange.jks");
-//        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(classPathResource, "coinexchange".toCharArray());
-//        tokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair("coinexchange", "coinexchange".toCharArray()));
-//        return tokenConverter;
-//    }
+    private TokenStore jwtTokenStore() {
+        JwtTokenStore jwtTokenStore = new JwtTokenStore(jwtAccessTokenConverter());
+        return jwtTokenStore;
+    }
+
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
+        ClassPathResource classPathResource = new ClassPathResource("coinexchange.jks");
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(classPathResource, "coinhub".toCharArray());
+        tokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair("coinhub", "coinhub".toCharArray()));
+        return tokenConverter;
+    }
+
 }

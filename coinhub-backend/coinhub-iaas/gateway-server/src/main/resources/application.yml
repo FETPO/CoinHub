@@ -41,22 +41,25 @@ spring:
           uri: https://www.google.com
           predicates:
             - Path=/chrome
-
     sentinel:
       transport:
         dashboard: sentinel-server:8858
       datasource:
-        ds1.file:
-          file: classpath:gw-flow.json  # ?? + API?????
-          ruleType: gw_flow
-#        ds1.nacos: #com.alibaba.csp.sentinel.datasource.nacos.NacosDataSource ??Nacos?????sentinel ????????nacos-datasource???
-#          serverAddr: nacos-server:8848
-#          dataId: gw-flow
+#        ds1.file:
+#          file: classpath:gw-flow.json  # ?? + API?????
 #          ruleType: gw_flow
-        ds2.file:
-          file: classpath:api-group.json
+#        ds2.file:
+#          file: classpath:api-group.json
+#          ruleType: gw_api_group
+        ds1.nacos:
+          serverAddr: nacos-server:8848
+          dataId: gw-flow
+          ruleType: gw_flow
+        ds2.nacos:
+          serverAddr: nacos-server:8848
+          dataId: api-group
           ruleType: gw_api_group
-#        ds2.nacos:
-#          serverAddr: nacos-server:8848
-#          dataId: api-group
-#          ruleType: gw_api_group # ?????sentinel-dashboard ??????????????????????????????????nacos?????????????????????--?nacos
+  redis:
+    host: redis-server
+    port: 6379
+    password: 20010419
